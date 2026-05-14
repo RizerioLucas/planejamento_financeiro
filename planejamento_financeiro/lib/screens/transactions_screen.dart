@@ -16,13 +16,19 @@ class TransactionsScreen extends StatelessWidget {
         itemCount: list.length,
         itemBuilder: (_, index) {
           final t = list[index];
-          final isPositive = t.type == TransactionType.income || t.type == TransactionType.yield;
+
+          final isPositive =
+              t.type == TransactionType.income;
+
           return ListTile(
             title: Text(t.title),
-            subtitle: Text("${t.date.day}/${t.date.month}/${t.date.year} - ${t.type.name}"),
+            subtitle: Text(t.type.name),
             trailing: Text(
               'R\$ ${t.amount.toStringAsFixed(2)}',
-              style: TextStyle(color: isPositive ? Colors.green : Colors.red, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                color: isPositive ? Colors.green : Colors.red,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           );
         },

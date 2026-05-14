@@ -3,6 +3,7 @@ import '../widgets/summary_card.dart';
 import 'transactions_screen.dart';
 import 'goals_screen.dart';
 import 'investments_screen.dart';
+import 'expenses_chart_screen.dart';
 import 'package:provider/provider.dart';
 import '../providers/transaction_provider.dart';
 
@@ -56,6 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+
 class DashboardPage extends StatelessWidget {
   const DashboardPage({super.key});
 
@@ -77,22 +79,44 @@ class DashboardPage extends StatelessWidget {
               icon: Icons.account_balance_wallet,
             ),
             const SizedBox(height: 16),
+
             SummaryCard(
               title: 'Receitas',
               value: 'R\$ ${provider.totalIncome.toStringAsFixed(2)}',
               icon: Icons.arrow_upward,
             ),
             const SizedBox(height: 16),
+
             SummaryCard(
               title: 'Despesas',
               value: 'R\$ ${provider.totalExpense.toStringAsFixed(2)}',
               icon: Icons.arrow_downward,
             ),
             const SizedBox(height: 16),
+
             SummaryCard(
               title: 'Investido',
               value: 'R\$ ${provider.totalInvested.toStringAsFixed(2)}',
               icon: Icons.trending_up,
+            ),
+
+            const SizedBox(height: 30),
+
+            // 🔥 BOTÃO DE GASTOS (O QUE VOCÊ QUERIA)
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton.icon(
+                icon: const Icon(Icons.pie_chart),
+                label: const Text('Ver Gastos'),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const ExpensesChartScreen(),
+                    ),
+                  );
+                },
+              ),
             ),
           ],
         ),
