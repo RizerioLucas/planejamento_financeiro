@@ -58,8 +58,15 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-class DashboardPage extends StatelessWidget {
+class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
+
+  @override
+  State<DashboardPage> createState() => _DashboardPageState();
+}
+
+class _DashboardPageState extends State<DashboardPage> {
+  final TextEditingController incomeController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -69,10 +76,11 @@ class DashboardPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Dashboard Financeiro'),
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
+            // 🔥 CARDS
             SummaryCard(
               title: 'Saldo',
               value: 'R\$ ${provider.balance.toStringAsFixed(2)}',
@@ -102,7 +110,43 @@ class DashboardPage extends StatelessWidget {
 
             const SizedBox(height: 30),
 
-            // 🔥 BOTÃO DE GASTOS (O QUE VOCÊ QUERIA)
+            // 🔥 SÓ RENDA (SEM GASTO AQUI)
+            const Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'Adicionar Renda',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
+
+            TextField(
+              controller: incomeController,
+              keyboardType: TextInputType.number,
+              decoration: const InputDecoration(
+                labelText: 'Valor da renda',
+              ),
+            ),
+
+            const SizedBox(height: 10),
+
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {
+                  final value =
+                      double.tryParse(incomeController.text) ?? 0;
+
+                  provider.addIncome(value, title: 'Salário');
+
+                  incomeController.clear();
+                },
+                child: const Text('Adicionar Renda'),
+              ),
+            ),
+
+            const SizedBox(height: 30),
+
+            // 🔥 BOTÃO GRÁFICO
             SizedBox(
               width: double.infinity,
               child: ElevatedButton.icon(

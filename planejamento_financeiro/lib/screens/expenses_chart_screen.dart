@@ -86,7 +86,7 @@ class _ExpensesChartScreenState extends State<ExpensesChartScreen> {
             child: Column(
               children: [
                 DropdownButtonFormField(
-                  value: selectedCategory,
+                  initialValue: selectedCategory,
                   items: categories
                       .map((c) => DropdownMenuItem(
                             value: c,

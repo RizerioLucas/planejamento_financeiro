@@ -139,7 +139,7 @@ class TransactionProvider extends ChangeNotifier {
 
     addTransaction(
       TransactionItem(
-        title: 'Rendimento Simulado (${annualRate}% a.a)',
+        title: 'Rendimento Simulado ($annualRate% a.a)',
         amount: yieldAmount,
         type: TransactionType.yield,
         date: targetDate,
